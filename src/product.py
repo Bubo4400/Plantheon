@@ -1,6 +1,5 @@
-from bs4 import BeautifulSoup
-from googlesearch import search
 from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
 import requests
 
@@ -38,5 +37,5 @@ def getProductInformation(barcode):
 
     getProductImage(soup, barcode)
 
-barcode = input("What is the barcode: ")
-getProductInformation(barcode);
+# barcode = input("What is the barcode: ")
+# getProductInformation(barcode);
