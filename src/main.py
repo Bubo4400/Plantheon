@@ -20,7 +20,7 @@ def scan(sheetName):
     while not correct:
         productName, author = searchProduct(barcodeInfo)        
 
-        newProductName, barcodeCheck = display.check_product(productName, f"images/{barcodeInfo}", barcodeInfo)
+        newProductName, barcodeCheck = display.check_product(productName, f"/tmp/Plantheon/{barcodeInfo}.jpg", barcodeInfo)
 
         if barcodeInfo == barcodeCheck:
             correct = True

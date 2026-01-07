@@ -2,6 +2,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 import requests
+import os
 
 def getProductName(soup):
     nameHeader = soup.find("h1", class_="product-name")
@@ -12,13 +13,16 @@ def getProductName(soup):
     return name
 
 def getProductImage(soup, barcode):
+    if not os.path.exists("/tmp/Plantheon"):
+        os.makedirs("/tmp/Plantheon")
+        print(f"Folder '/tmp/Plantheon' created.")
     figureHeader = soup.find("figure", class_="product-image non-mobile")
     imageHeader = figureHeader.find("img")
     imageSource = imageHeader["src"]
 
     print(f"Image Source : {imageSource}")
 
-    savePath = f"images/{barcode}.jpg"
+    savePath = f"/tmp/Plantheon/{barcode}.jpg"
     image = requests.get(imageSource)
     if image.status_code == 200:
         with open(savePath, 'wb') as file:
