@@ -1,42 +1,32 @@
 from pyzbar import pyzbar
 
-import threading
-import product
 import cv2
 
-previousBarcode = ""
-
-def searchProduct(barcode):
-    product.getProductInformation(barcode)
-
-def read_barcodes(frame):
+def readBarcodes(frame):
     global previousBarcode
     
     barcodes = pyzbar.decode(frame)
     for barcode in barcodes:
         x, y, w, h = barcode.rect
-        barcode_info = barcode.data.decode('utf-8')
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        barcodeInfo = barcode.data.decode('utf-8')
+        return frame, barcodeInfo
 
-        if previousBarcode != barcode_info:
-            previousBarcode = barcode_info
-            t = threading.Thread(target=searchProduct, args=(barcode_info,))
-            t.start()
+    return frame, ""
 
-    return frame
-
-def main():
+def barcodeCamera():
     camera = cv2.VideoCapture(0)
     ret, frame = camera.read()
+    barcodeInfo = ""
     while ret:
         ret, frame = camera.read()
-        frame = read_barcodes(frame)
+        frame, barcodeInfo = readBarcodes(frame)
         cv2.imshow('Real Time Barcode Scanner', frame)
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
+        if barcodeInfo != "":
+            ret = False
+            
     camera.release()
     cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    main()
+    return barcodeInfo

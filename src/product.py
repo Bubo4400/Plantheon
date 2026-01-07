@@ -27,15 +27,30 @@ def getProductImage(soup, barcode):
     else:
         print(f"Failed to download image.")
 
+def getProductAuthor(soup):
+    tableHeader = soup.find("table", class_ ="table table-striped")
+    tableLines = tableHeader.find_all("tr")
+    
+    for line in tableLines:
+        entries = line.find_all("td")
+        
+        if "Author" == entries[0].get_text():
+            author = entries[1].get_text()
 
-def getProductInformation(barcode):
-    url = f"https://go-upc.com/search?q={barcode}"
+            print(f"The author is {author}")
+            return author
+
+    return None           
+
+def getProductInformation(barcodeInfo):
+    url = f"https://go-upc.com/search?q={barcodeInfo}"
     page = urlopen(url)
     soup = BeautifulSoup(page, "lxml")
     
-    name = getProductName(soup)
+    productName = getProductName(soup)
 
-    getProductImage(soup, barcode)
-
-# barcode = input("What is the barcode: ")
-# getProductInformation(barcode);
+    author = getProductAuthor(soup)
+        
+    getProductImage(soup, barcodeInfo)
+    
+    return productName, author
