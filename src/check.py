@@ -118,7 +118,7 @@ class ProductConfirmDialog(QDialog):
         self.accept()
 
 
-def check_product(product_name, image_path, barcode):
+def checkProduct(product_name, image_path, barcode):
     app = QApplication.instance()
     if not app:
         app = QApplication(sys.argv)

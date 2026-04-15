@@ -2,6 +2,7 @@ import cataloguer
 import product
 import barcode
 import display
+import check
 
 row = 2
 
@@ -20,7 +21,7 @@ def scan(sheetName):
     while not correct:
         productName, author = searchProduct(barcodeInfo)        
 
-        newProductName, barcodeCheck = display.check_product(productName, f"/tmp/Plantheon/{barcodeInfo}.jpg", barcodeInfo)
+        newProductName, barcodeCheck = check.checkProduct(productName, f"/tmp/Plantheon/{barcodeInfo}.jpg", barcodeInfo)
 
         if barcodeInfo == barcodeCheck:
             correct = True

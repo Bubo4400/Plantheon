@@ -3,7 +3,7 @@ from openpyxl.styles import Font, Alignment
 
 import os
 
-def get_next_row(fileName):
+def createSheet(fileName):
     """Get the next available row in an Excel file. Create file with headers if it doesn't exist."""
     path = f"{fileName}.xlsx"
     
