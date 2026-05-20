@@ -22,7 +22,7 @@ A professional desktop application for cataloguing products using barcode scanni
 
 ### Clone & Setup
 ```bash
-git clone https://github.com/yourusername/Plantheon.git
+git clone https://github.com/Bubo4400/Plantheon.git
 cd Plantheon
 ```
 
