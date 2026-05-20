@@ -96,3 +96,20 @@ def get_all_items(fileName):
         row += 1
         
     return items
+
+def get_next_row(fileName):
+    """Return the next available row in an existing Excel file."""
+    path = f"{fileName}.xlsx"
+
+    if not os.path.exists(path):
+        return createSheet(fileName)
+
+    workbook = load_workbook(path)
+    worksheet = workbook.active
+
+    row = 1
+    while worksheet.cell(row=row, column=1).value:
+        row += 1
+
+    return row
+
